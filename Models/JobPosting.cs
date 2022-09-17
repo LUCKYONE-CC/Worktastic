@@ -9,7 +9,7 @@ namespace Worktastic.Models
         public string JobTitle { get; set; }
         public string JobLocation { get; set; }
         public string Description { get; set; }
-        public decimal Salary { get; set; }
+        public int Salary { get; set; }
         public DateTime StartDate { get; set; }
         public string CompanyName { get; set; }
         public string ContactPhone { get; set; }
