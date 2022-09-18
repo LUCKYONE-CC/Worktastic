@@ -3,7 +3,7 @@
     ViewData["Title"] = "Erstellen oder bearbeiten";
 }
 
-<form asp-controller="JobPosting" asp-action="CreateEditJob">
+<form asp-controller="JobPosting" asp-action="CreateEditJob" enctype="multipart/form-data">
 
     <div class="card">
         <div class="card-header">
@@ -47,7 +47,7 @@
                     <input class="form-control" asp-for="CompanyName" type="text" placeholder="Firmenname"/>
                 </div>
                 <div class="col">
-                    <input class="custom-file-input" asp-for="CompanyImage" type="file" placeholder="Firmenlogo"/>
+                    <input class="form-control" asp-for="ContactWebsite" type="url" placeholder="Webseite"/>
                 </div>
             </div>
 
@@ -62,13 +62,14 @@
 
             <div class="row form-group">
                 <div class="col">
-                    <input class="form-control" asp-for="ContactWebsite" type="url" placeholder="Webseite"/>
+                    <textarea rows="6" class="form-control" asp-for="Description" placeholder="Jobbeschreibung"></textarea>
                 </div>
             </div>
 
             <div class="row form-group">
                 <div class="col">
-                    <textarea rows="6" class="form-control" asp-for="Description" placeholder="Jobbeschreibung"></textarea>
+                    <h5>Firmenlogo</h5>
+                    <input class="form-control-file" name="file" type="file"/>
                 </div>
             </div>
 
