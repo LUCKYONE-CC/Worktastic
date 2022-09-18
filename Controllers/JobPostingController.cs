@@ -17,16 +17,32 @@ namespace Worktastic.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            var jobPostingsFromDb = _context.JobPostings.Where(x => x.Ownerusername == User.Identity.Name).ToList();
+
+            return View(jobPostingsFromDb);
         }
 
         public IActionResult CreateEditJobPosting(int id)
         {
+            if(id != 0)
+            {
+                var jobPostingFromDb = _context.JobPostings.SingleOrDefault(x => x.Id == id);
+
+                if(jobPostingFromDb != null)
+                {
+                    return View(jobPostingFromDb);
+                }else
+                {
+                    return NotFound();
+                }
+            }
+
             return View();
         }
 
         public IActionResult CreateEditJob(JobPosting jobPosting, IFormFile file)
         {
+            jobPosting.Ownerusername = User.Identity.Name;
             if(file != null)
             {
                 using (var ms = new MemoryStream())
@@ -64,8 +80,9 @@ namespace Worktastic.Controllers
                 jobFromDb.ContactMail = jobPosting.ContactMail;
                 jobFromDb.Description = jobPosting.Description;
                 jobFromDb.CompanyImage = jobPosting.CompanyImage;
-
+                jobFromDb.Ownerusername = jobPosting.Ownerusername;
                 //(_context.JobPostings.Update(jobPosting);) Kurze Schreibweise
+                _context.SaveChanges();
             }
 
             return RedirectToAction("Index"); //navigate to public IActionResult Index()
