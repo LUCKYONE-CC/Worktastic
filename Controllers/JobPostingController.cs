@@ -82,8 +82,8 @@ namespace Worktastic.Controllers
                 jobFromDb.CompanyImage = jobPosting.CompanyImage;
                 jobFromDb.Ownerusername = jobPosting.Ownerusername;
                 //(_context.JobPostings.Update(jobPosting);) Kurze Schreibweise
-                _context.SaveChanges();
             }
+            _context.SaveChanges();
 
             return RedirectToAction("Index"); //navigate to public IActionResult Index()
         }
