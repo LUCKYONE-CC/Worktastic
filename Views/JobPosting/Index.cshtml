@@ -8,7 +8,7 @@
 
 <hr />
 
-<table class="table table-bordered table-striped table-hover">
+<table class="table table-bordered table-striped table-hover" id="jobPostingTable">
     <thead class="thead-dark">
         <tr>
             <th>Id</th>
@@ -25,20 +25,28 @@
         @{
             foreach(JobPosting jobPosting in Model)
             {
-                <tr>
-                    <td>@jobPosting.Id</td>
-                    <td>@jobPosting.JobTitle</td>
-                    <td>@jobPosting.CompanyName</td>
-                    <td>@jobPosting.JobLocation</td>
-                    <td>@jobPosting.Salary</td>
-                    <td>@jobPosting.StartDate</td>
-                    <td>
-                        <a class="btn btn-warning" asp-route-id="@jobPosting.Id" asp-controller="JobPosting" asp-action="CreateEditJobPosting">Bearbeiten</a>
-                        <a class="btn btn-danger" asp-route-id="@jobPosting.Id" asp-controller="JobPosting" asp-action="DeleteJobPosting">Löschen</a>
-                    </td>
-                </tr>
+                    <tr>
+                        <td>@jobPosting.Id</td>
+                        <td>@jobPosting.JobTitle</td>
+                        <td>@jobPosting.CompanyName</td>
+                        <td>@jobPosting.JobLocation</td>
+                        <td>@jobPosting.Salary</td>
+                        <td>@jobPosting.StartDate</td>
+                        <td>
+                            <a class="btn btn-warning" asp-route-id="@jobPosting.Id" asp-controller="JobPosting" asp-action="CreateEditJobPosting">Bearbeiten</a>
+                            <a class="btn btn-danger" asp-route-id="@jobPosting.Id" asp-controller="JobPosting" asp-action="DeleteJobPosting">Löschen</a>
+                        </td>
+                    </tr>
             }
         }
 
     </tbody>
 </table>
+
+@section Scripts{
+    <script>
+        $(document).ready( function () {
+            $('#jobPostingTable').DataTable();
+        } );
+    </script>
+}
