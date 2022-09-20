@@ -11,7 +11,6 @@
 <table class="table table-bordered table-striped table-hover" id="jobPostingTable">
     <thead class="thead-dark">
         <tr>
-            <th>Id</th>
             <th>Jobbezeichnung</th>
             <th>Firmenname</th>
             <th>Ort</th>
@@ -25,18 +24,17 @@
         @{
             foreach (JobPosting jobPosting in Model)
             {
-                                                        <tr>
-                                                            <td>@jobPosting.Id</td>
-                                                            <td>@jobPosting.JobTitle</td>
-                                                            <td>@jobPosting.CompanyName</td>
-                                                            <td>@jobPosting.JobLocation</td>
-                                                            <td>@jobPosting.Salary</td>
-                                                            <td>@jobPosting.StartDate</td>
-                                                            <td>
-                                                                <a class="btn btn-warning" asp-route-id="@jobPosting.Id" asp-controller="JobPosting" asp-action="CreateEditJobPosting">Bearbeiten</a>
-                                                                <button onclick="onClickedDeleteButton(@jobPosting.Id)" class="btn btn-danger">Löschen</button>
-                                                            </td>
-                                                        </tr>
+                <tr>
+                    <td>@jobPosting.JobTitle</td>
+                    <td>@jobPosting.CompanyName</td>
+                    <td>@jobPosting.JobLocation</td>
+                    <td>@jobPosting.Salary</td>
+                    <td>@jobPosting.StartDate.ToShortDateString()</td>
+                    <td>
+                        <a class="btn btn-warning" asp-route-id="@jobPosting.Id" asp-controller="JobPosting" asp-action="CreateEditJobPosting">Bearbeiten</a>
+                        <button onclick="onClickedDeleteButton(@jobPosting.Id)" class="btn btn-danger">Löschen</button>
+                    </td>
+                </tr>
             }
         }
 
