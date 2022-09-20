@@ -88,7 +88,8 @@ namespace Worktastic.Controllers
             return RedirectToAction("Index"); //navigate to public IActionResult Index()
         }
 
-        public IActionResult DeleteJobPosting(int id)
+        [HttpPost]
+        public IActionResult DeleteJobPostingById(int id)
         {
             if(id == 0)
             {
@@ -109,7 +110,7 @@ namespace Worktastic.Controllers
                 _context.SaveChanges();
             }
 
-            return RedirectToAction("Index");
+            return Ok();
         }
     }
 }
