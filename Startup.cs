@@ -31,13 +31,14 @@ namespace Worktastic
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
+                .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
             services.AddRazorPages();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider serviceProvider)
         {
             if (env.IsDevelopment())
             {
@@ -65,6 +66,20 @@ namespace Worktastic
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
+
+            CreateAdminRole(serviceProvider, "Administrator").Wait();
+        }
+
+        public async Task CreateAdminRole(IServiceProvider serviceProvider, string roleName)
+        {
+            var roleManager = serviceProvider.GetService<RoleManager<IdentityRole>>();
+
+            var roleExists = await roleManager.RoleExistsAsync(roleName);
+
+            if (roleExists)
+                return;
+
+            await roleManager.CreateAsync(new IdentityRole(roleName));
         }
     }
 }
