@@ -67,7 +67,7 @@
                     url: "@Url.Action("DeleteJobPostingById")",
                     data: { id: id },
                     success: function (msg) {
-                        //Swal.fire('Wurde gelöscht!', '', 'success')
+                        Swal.fire('Wurde gelöscht!', '', 'success')
                         location.reload(); //Im Grunde wie F5
                     },
                     error: function (msg) {
