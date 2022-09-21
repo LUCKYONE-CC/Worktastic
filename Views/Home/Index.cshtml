@@ -16,31 +16,18 @@
 
 <div class="row mt-4">
     <div class="col-11">
-        <input class="form-control-lg form-control" type="search" placeholder="Wonach suchst du?"/>
+        <input id="inputQuery" class="form-control-lg form-control" type="search" placeholder="Wonach suchst du?"/>
     </div>
 
     <div class="col-1">
-        <button class="btn btn-lg btn-primary">Suchen</button>
+        <button onclick="onClickSearch()" class="btn btn-lg btn-primary">Suchen</button>
     </div>
 </div>
 
 <hr />
 
-<div class="list-group mt-4">
+<div id="partialList">
 
-    @{
-        foreach(JobPosting jobPosting in Model)
-        {
-                            <a href="#" onclick="showModal(@jobPosting.Id)" data-toggle="modal" data-target="#modalJobPosting" class="list-group-item list-group-item-action" aria-current="true">
-                            <div class="d-flex w-100 justify-content-between">
-                                <h5 class="mb-1">@jobPosting.JobTitle</h5>
-                                <small>@jobPosting.JobLocation (@jobPosting.CompanyName)</small>
-                            </div>
-                            <p class="mb-1">@jobPosting.Description</p>
-                            <small>Startet am @jobPosting.StartDate.ToShortDateString()</small>
-                            </a>
-        }
-    }
 </div>
 
 <!-- Modal -->
@@ -79,15 +66,15 @@
             <h5>Kontakt</h5>
             <div class="mb-1">
                 <label>Telefon: </label>
-                <a id="modal-contactPhone">
+                <a id="modal-contactPhone"></a>
             </div>
             <div class="mb-1">
                 <label>E-Mail: </label>
-                <a id="modal-contactMail">
+                <a id="modal-contactMail"></a>
             </div>
             <div class="mb-1">
                 <label>Website: </label>
-                <a id="modal-contactWebsite">
+                <a id="modal-contactWebsite"></a>
             </div>
       </div>
     </div>
@@ -97,6 +84,12 @@
 @section Scripts{
     <script>
 
+        $('#partialList').load("/home/GetJobPostingsPartial");
+
+        function onClickSearch(){
+            var query = $('#inputQuery').val();
+            $('#partialList').load("/home/GetJobPostingsPartial?query=" + query);
+        }
 
         function showModal(id){
 
