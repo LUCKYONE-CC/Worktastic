@@ -39,5 +39,19 @@ namespace Worktastic.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+        [HttpGet]
+        public IActionResult GetJobPostingById(int id)
+        {
+            if(id == 0)
+                return BadRequest();
+
+            var jobPostingFromDb = _context.JobPostings.SingleOrDefault(x => x.Id == id);
+
+            if(jobPostingFromDb == null)
+                return NotFound();
+
+            return Ok(jobPostingFromDb);
+        }
     }
 }
