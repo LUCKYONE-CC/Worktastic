@@ -22,5 +22,16 @@ namespace Worktastic.Controllers
 
             return Ok(allJobPostings);
         }
+
+        [HttpGet("GetById")]
+        public IActionResult GetById(int id)
+        {
+            var jobPosting = _context.JobPostings.SingleOrDefault(x => x.Id == id);
+
+            if (jobPosting == null)
+                return NotFound();
+
+            return Ok(jobPosting);
+        }
     }
 }
