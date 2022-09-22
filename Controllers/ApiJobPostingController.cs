@@ -1,16 +1,26 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
+using Worktastic.Data;
 
 namespace Worktastic.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/jobposting")]
     [ApiController]
     public class ApiJobPostingController : ControllerBase
     {
-        [HttpGet]
+        private readonly ApplicationDbContext _context;
+        public ApiJobPostingController(ApplicationDbContext context)
+        {
+            _context = context;
+        }
+
+        [HttpGet("GetAll")]
         public IActionResult GetAll()
         {
-            return Ok("Hallo Welt!");
+            var allJobPostings = _context.JobPostings.ToArray();
+
+            return Ok(allJobPostings);
         }
     }
 }
