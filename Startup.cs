@@ -68,7 +68,7 @@ namespace Worktastic
             });
 
             CreateAdminRole(serviceProvider, "Administrator").Wait();
-            CreateDefaultUser(serviceProvider, "Administrator", "admin@worktastic.de", "admin!?Worktastic!").Wait();
+            CreateDefaultUser(serviceProvider, "Administrator", "admin@worktastic.de", "ZMx32k&p^hs/e").Wait();
         }
 
         public async Task CreateAdminRole(IServiceProvider serviceProvider, string roleName)
